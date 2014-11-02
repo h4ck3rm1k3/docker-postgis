@@ -51,4 +51,15 @@ RUN cd /opt/osmosis/ && ./gradlew
 RUN cd /opt/osmosis/ && ./gradlew assemble
 
 
+##osm2pgsql
+### osm2pgsql
+RUN cd /opt/ && git clone https://github.com/h4ck3rm1k3/osm2pgsql.git
+RUN apt-get install -t experimental -y autoconf automake libtool make g++ libboost-dev \
+  libboost-system-dev libboost-filesystem-dev libboost-thread-dev libxml2-dev \
+  libgeos-dev libgeos++-dev libpq-dev libbz2-dev libproj-dev
+  protobuf-c-compiler libprotobuf-c0-dev lua5.2 liblua5.2-dev
+RUN cd /opt/osm2pgsql && ./autogen.sh
+RUN cd /opt/osm2pgsql && ./configure 
+RUN cd /opt/osm2pgsql && make 
+RUN cd /opt/osm2pgsql && make install
 
