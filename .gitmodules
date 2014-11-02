@@ -1,0 +1,3 @@
+[submodule "docker-apt-cacher-ng"]
+	path = docker-apt-cacher-ng
+	url = git@github.com:h4ck3rm1k3/docker-apt-cacher-ng.git
