@@ -35,14 +35,24 @@ RUN apt-get  -f -t experimental -y install libproj-dev libnetcdf-dev  netcdf-bin
 RUN apt-get -t experimental -y install `apt-cache depends osmium | awk '/Depends:/{print$2}'`
 
 RUN mkdir -p /opt/libgdal1h && cd /opt/libgdal1h && apt-src  install libgdal1h && apt-src  build libgdal1h
+RUN cd /opt/libgdal1h && dpkg -i *.deb
 
-#RUN apt-get  -t experimental -y download libgdal1h && dpkg -i --force-all *.deb
-#RUN apt-get  -t experimental -y -f install
-#RUN apt-get -y build-dep -texperimental osmium
+RUN apt-get -y build-dep -texperimental osmium
+RUN apt-get -y install -texperimental libosmium-dev  
+RUN apt-get -y install -texperimental libxml2-dev 
+
+RUN mkdir -p /opt/ && cd /opt/ && git clone https://github.com/h4ck3rm1k3/osm-history-splitter.git
+RUN cd /opt/osm-history-splitter/ && git pull origin master && autoreconf &&  ./configure && make
+
+# osmosis
+RUN mkdir -p /opt/ && cd /opt/ && git clone https://github.com/h4ck3rm1k3/osmosis.git
+RUN cd /opt/osmosis/ && git pull origin master && ./gradlew build
+
+
+
+
+
 #RUN mkdir -p /opt/ && cd /opt/ && git clone https://github.com/h4ck3rm1k3/osmosis.git
 
 
-#RUN mkdir -p /opt/ && cd /opt/ && git clone https://github.com/h4ck3rm1k3/osm-history-splitter.git
-#RUN cd /opt/osm2pgrouting/ && cmake .
-#RUN cd /opt/osm2pgrouting/ && make
 
