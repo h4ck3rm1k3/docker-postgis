@@ -32,7 +32,7 @@ run echo "local   all             postgres				trust" >> /etc/postgresql/9.4/main
 
 RUN /etc/init.d/postgresql start
 
-RUN createdb routing -U postgres -O postgres
+#RUN createdb routing -U postgres -O postgres
 #RUN psql -U postgres -d routing -c 'create extension postgis;'
 #RUN psql -U postgres -d routing -c 'create extension pgrouting;'
 #RUN psql -U postgres -d routing -c 'create extension hstore;'
