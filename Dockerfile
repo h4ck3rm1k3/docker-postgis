@@ -30,22 +30,21 @@ run echo "local   all             postgres				trust" >> /etc/postgresql/9.4/main
 #CMD cat /etc/postgresql/9.4/main/pg_hba.conf
 
 RUN /etc/init.d/postgresql start && createdb routing -U postgres -O postgres
-RUN /etc/init.d/postgresql start && psql -U postgres -d routing -c 'create extension postgis;' &&  psql -U postgres -d routing -c 'create extension pgrouting;' && psql -U postgres -d routing -c 'create extension hstore;' && psql -U postgres -d routing -c 'create extension "uuid-ossp";'
+RUN /etc/init.d/postgresql start && \
+    psql -U postgres -d routing -c 'create extension postgis;'  && \
+    psql -U postgres -d routing -c 'create extension pgrouting;' && \
+    psql -U postgres -d routing -c 'create extension hstore;' && \
+    psql -U postgres -d routing -c 'create extension "uuid-ossp";' && \
+    /bin/su postgres -c "createuser -d -s -r -l docker" && \
+    /bin/su postgres -c "psql postgres -c \"ALTER USER docker WITH ENCRYPTED PASSWORD 'docker'\""  && \
+    /etc/init.d/postgresql stop
 
-
-
-#RUN service postgresql start 
-#RUN /bin/su postgres -c "createuser -d -s -r -l docker"
-#RUN /bin/su postgres -c "psql postgres -c \"ALTER USER docker WITH ENCRYPTED PASSWORD 'docker'\"" 
-#RUN service postgresql stop
-
-#RUN echo "listen_addresses = '*'" >> /etc/postgresql/9.4/main/postgresql.conf
-#RUN echo "port = 5432" >> /etc/postgresql/9.4/main/postgresql.conf
+RUN echo "listen_addresses = '*'" >> /etc/postgresql/9.4/main/postgresql.conf
+RUN echo "port = 5432" >> /etc/postgresql/9.4/main/postgresql.conf
 
 EXPOSE 5432
 
-#ADD start.sh /start.sh
-#RUN chmod 0755 /start.sh
+ADD start.sh /start.sh
+RUN chmod 0755 /start.sh
 
-#CMD ["/start.sh"]
-
+CMD ["/start.sh"]
