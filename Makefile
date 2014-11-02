@@ -5,4 +5,4 @@ shell:
 	sudo docker run -i -t pgroute /bin/bash -i
 
 server:
-	sudo docker run  -t pgroute 
+	sudo docker run --name pgroute  -t pgroute 
