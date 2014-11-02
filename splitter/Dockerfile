@@ -46,13 +46,9 @@ RUN cd /opt/osm-history-splitter/ && git pull origin master && autoreconf &&  ./
 
 # osmosis
 RUN mkdir -p /opt/ && cd /opt/ && git clone https://github.com/h4ck3rm1k3/osmosis.git
-RUN cd /opt/osmosis/ && git pull origin master && ./gradlew build
-
-
-
-
-
-#RUN mkdir -p /opt/ && cd /opt/ && git clone https://github.com/h4ck3rm1k3/osmosis.git
+RUN cd /opt/osmosis/ && git pull origin master 
+RUN cd /opt/osmosis/ && ./gradlew 
+RUN cd /opt/osmosis/ && ./gradlew assemble
 
 
 

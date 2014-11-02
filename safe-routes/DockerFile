@@ -1,0 +1,4 @@
+FROM debian:sid
+MAINTAINER James Michael DuPont <h4ck3rm1k3@thefr33.com>
+
+RUN mkdir -p /opt/ && cd /opt/ && git clone https://github.com/IndianHillsLawrence/saferoutes2school.git

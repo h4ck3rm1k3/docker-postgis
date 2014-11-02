@@ -6,3 +6,6 @@ shell:
 
 server:
 	sudo docker run --name pgroute  -t pgroute 
+
+start :
+	sudo docker start pgroute
