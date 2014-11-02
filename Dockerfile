@@ -19,9 +19,8 @@ RUN dpkg-reconfigure locales && \
 
 ENV LC_ALL C.UTF-8
 
-
-RUN aptitude -t experimental -y install postgresql-9.4-pgrouting postgis postgresql-9.4-postgis-2.1 postgresql-9.4 emacs-nox libgcc1 libstdc++6 libgdal1h postgis
-
+RUN apt-get -t experimental -y install libjpeg62-turbo  libgdal1h=1.10.1+dfsg-8+b3
+RUN apt-get -t experimental -y install postgresql-9.4-pgrouting postgis postgresql-9.4-postgis-2.1 postgresql-9.4 emacs-nox libgcc1 libstdc++6 postgis
 
 run echo "host    all             all             127.0.0.1/32		trust" > /etc/postgresql/9.4/main/pg_hba.conf
 run echo "host    all             all             ::1/128	        trust" >> /etc/postgresql/9.4/main/pg_hba.conf
@@ -30,13 +29,8 @@ run echo "local   all             postgres				trust" >> /etc/postgresql/9.4/main
 
 #CMD cat /etc/postgresql/9.4/main/pg_hba.conf
 
-RUN /etc/init.d/postgresql start
-
-#RUN createdb routing -U postgres -O postgres
-#RUN psql -U postgres -d routing -c 'create extension postgis;'
-#RUN psql -U postgres -d routing -c 'create extension pgrouting;'
-#RUN psql -U postgres -d routing -c 'create extension hstore;'
-#RUN psql -U postgres -d routing -c 'create extension "uuid-ossp";'
+RUN /etc/init.d/postgresql start && createdb routing -U postgres -O postgres
+RUN /etc/init.d/postgresql start && psql -U postgres -d routing -c 'create extension postgis;' &&  psql -U postgres -d routing -c 'create extension pgrouting;' && psql -U postgres -d routing -c 'create extension hstore;' && psql -U postgres -d routing -c 'create extension "uuid-ossp";'
 
 
 
