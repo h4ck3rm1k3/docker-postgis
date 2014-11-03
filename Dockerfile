@@ -42,6 +42,9 @@ RUN /etc/init.d/postgresql start && \
 RUN echo "listen_addresses = '*'" >> /etc/postgresql/9.4/main/postgresql.conf
 RUN echo "port = 5432" >> /etc/postgresql/9.4/main/postgresql.conf
 
+# for docker
+run echo "host    all             all             172.17.0.0/24		trust" > /etc/postgresql/9.4/main/pg_hba.conf
+
 EXPOSE 5432
 
 ADD start.sh /start.sh

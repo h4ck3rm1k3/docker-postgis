@@ -4,7 +4,9 @@ build :
 shell:
 	sudo docker run -i -t pgroute /bin/bash -i
 
-server:
+server: build
+	-sudo docker kill pgroute 
+	-sudo docker rm pgroute 
 	sudo docker run --name pgroute  -t pgroute 
 
 start :
