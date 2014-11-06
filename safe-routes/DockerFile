@@ -1,4 +1,6 @@
-FROM debian:sid
+FROM imposm3:latest
 MAINTAINER James Michael DuPont <h4ck3rm1k3@thefr33.com>
+
+RUN mkdir -p /opt/ && cd /opt/ && git clone https://github.com/openlawrence/Nominatim.git
 
 RUN mkdir -p /opt/ && cd /opt/ && git clone https://github.com/IndianHillsLawrence/saferoutes2school.git
